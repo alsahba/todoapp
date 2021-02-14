@@ -24,7 +24,17 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic topic() {
+    public NewTopic addToDoTopic() {
         return new NewTopic("addTodoTopic", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic updateToDoTopic() {
+        return new NewTopic("updateTodoTopic", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic deleteToDoTopic() {
+        return new NewTopic("deleteTodoTopic", 1, (short) 1);
     }
 }

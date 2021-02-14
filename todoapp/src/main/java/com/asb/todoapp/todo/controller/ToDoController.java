@@ -1,11 +1,11 @@
 package com.asb.todoapp.todo.controller;
 
+import com.asb.todoapp.todo.controller.dto.AddToDoDTO;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
+import com.asb.todoapp.todo.controller.dto.UpdateToDoDTO;
 import com.asb.todoapp.todo.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,10 +21,15 @@ public class ToDoController {
         return toDoService.getAll();
     }
 
-    @GetMapping("/add")
-    public boolean add() {
-        toDoService.publish();
-        return true;
+    @PostMapping("/add")
+    public String add(@RequestBody AddToDoDTO addToDoDTO) {
+        toDoService.publishForAdd(addToDoDTO.convertToPojo());
+        return "ToDo added successfully";
     }
 
+    @PostMapping("/update")
+    public String update(@RequestBody UpdateToDoDTO updateToDoDTO) {
+        toDoService.publishForUpdate(updateToDoDTO.convertToPojo());
+        return "ToDo updated successfully";
+    }
 }

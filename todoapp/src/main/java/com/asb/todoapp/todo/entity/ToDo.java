@@ -2,20 +2,17 @@ package com.asb.todoapp.todo.entity;
 
 import com.asb.todoapp.todo.entity.enumeration.Importance;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TODO")
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class ToDo {
 
     @Id
@@ -36,5 +33,12 @@ public class ToDo {
         this.explanation = addToDoPojo.getExplanation();
         this.creationDate = LocalDateTime.now();
         this.importance = addToDoPojo.getImportance();
+    }
+
+    public ToDo(UpdateToDoPojo updateToDoPojo) {
+        this.id = updateToDoPojo.getId();
+        this.explanation = updateToDoPojo.getExplanation();
+        this.creationDate = LocalDateTime.now();
+        this.importance = updateToDoPojo.getImportance();
     }
 }
