@@ -25,9 +25,7 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
-    public void add() {
-        ToDo toDo = new ToDo();
-        toDo.setExplanation("something");
+    public void add(ToDo toDo) {
         toDoRepository.save(toDo);
     }
 
