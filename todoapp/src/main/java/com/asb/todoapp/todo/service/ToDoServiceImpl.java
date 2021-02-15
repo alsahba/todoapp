@@ -1,8 +1,10 @@
 package com.asb.todoapp.todo.service;
 
-import com.asb.todoapp.todo.entity.ToDo;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
+import com.asb.todoapp.todo.entity.ToDo;
+import com.asb.todoapp.todo.entity.enumeration.Status;
 import com.asb.todoapp.todo.producer.AddToDoProducer;
+import com.asb.todoapp.todo.producer.DeleteToDoProducer;
 import com.asb.todoapp.todo.producer.ToDoProducer;
 import com.asb.todoapp.todo.producer.UpdateToDoProducer;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,9 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Autowired
     private UpdateToDoProducer updateToDoProducer;
+
+    @Autowired
+    private DeleteToDoProducer deleteToDoProducer;
 
     @Override
     @Transactional(readOnly = true)
@@ -55,5 +61,27 @@ public class ToDoServiceImpl implements ToDoService {
     @Transactional
     public void publishForUpdate(UpdateToDoPojo updateToDoPojo) {
         new ToDoProducer(updateToDoProducer).publishMessage(updateToDoPojo);
+    }
+
+    @Override
+    @Transactional
+    public void publishForDelete(Long id) {
+        deleteToDoProducer.publishMessage(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        Optional<ToDo> toDo = toDoRepository.findById(id);
+        toDo.ifPresent(toDoFromDb -> {
+            toDoFromDb.setStatus(Status.DELETED);
+            toDoRepository.save(toDoFromDb);
+        });
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ToDoDetailDTO getDetail(Long id) {
+        return toDoRepository.findById(id).map(ToDoDetailDTO::new).orElseGet(ToDoDetailDTO::new);
     }
 }

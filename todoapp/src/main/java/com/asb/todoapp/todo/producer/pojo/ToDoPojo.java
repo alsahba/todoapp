@@ -1,10 +1,16 @@
 package com.asb.todoapp.todo.producer.pojo;
 
+import com.asb.todoapp.todo.entity.enumeration.Importance;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ToDoPojo {
-    // TODO: 14.2.2021
+
+    private String explanation;
+    private Importance importance;
+
 }

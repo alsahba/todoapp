@@ -7,12 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 public class AddToDoPojo extends ToDoPojo {
 
-    private Long id;
-    private String explanation;
-    private Importance importance;
-
     public AddToDoPojo(String explanation, Importance importance) {
-        this.explanation = explanation;
-        this.importance = importance;
+        super.setExplanation(explanation);
+        super.setImportance(importance);
     }
 }

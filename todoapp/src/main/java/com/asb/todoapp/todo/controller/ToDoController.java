@@ -32,4 +32,15 @@ public class ToDoController {
         toDoService.publishForUpdate(updateToDoDTO.convertToPojo());
         return "ToDo updated successfully";
     }
+
+    @RequestMapping("/delete")
+    public String delete(@PathVariable Long id) {
+        toDoService.publishForDelete(id);
+        return "ToDo deleted successfully";
+    }
+
+    @GetMapping()
+    public ToDoDetailDTO getDetail(@PathVariable Long id) {
+        return toDoService.getDetail(id);
+    }
 }

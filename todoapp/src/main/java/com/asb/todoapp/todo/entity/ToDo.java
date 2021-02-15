@@ -1,6 +1,7 @@
 package com.asb.todoapp.todo.entity;
 
 import com.asb.todoapp.todo.entity.enumeration.Importance;
+import com.asb.todoapp.todo.entity.enumeration.Status;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
 import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
 import lombok.Data;
@@ -29,10 +30,15 @@ public class ToDo {
     @Column(name = "CREATION_DATE")
     private LocalDateTime creationDate;
 
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public ToDo(AddToDoPojo addToDoPojo) {
         this.explanation = addToDoPojo.getExplanation();
         this.creationDate = LocalDateTime.now();
         this.importance = addToDoPojo.getImportance();
+        this.status = Status.CREATED;
     }
 
     public ToDo(UpdateToDoPojo updateToDoPojo) {

@@ -8,9 +8,21 @@ import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
 import java.util.List;
 
 public interface ToDoService {
+
     List<ToDoDetailDTO> getAll();
+
     void add(ToDo toDo);
+
     void update(ToDo toDo);
+
     void publishForAdd(AddToDoPojo addToDoPojo);
+
     void publishForUpdate(UpdateToDoPojo updateToDoPojo);
+
+    void publishForDelete(Long id);
+
+    void deleteById(Long id);
+
+    ToDoDetailDTO getDetail(Long id);
+
 }
