@@ -1,5 +1,6 @@
 package com.asb.todoapp.todo.service;
 
+import com.asb.todoapp.applog.entity.enumeration.Operation;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
 import com.asb.todoapp.todo.entity.ToDo;
 import com.asb.todoapp.todo.entity.enumeration.Status;
@@ -8,10 +9,12 @@ import com.asb.todoapp.todo.producer.DeleteToDoProducer;
 import com.asb.todoapp.todo.producer.ToDoProducer;
 import com.asb.todoapp.todo.producer.UpdateToDoProducer;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
+import com.asb.todoapp.todo.producer.pojo.ToDoPojo;
 import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
 import com.asb.todoapp.todo.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -88,5 +91,10 @@ public class ToDoServiceImpl implements ToDoService {
     @Transactional(readOnly = true)
     public ToDoDetailDTO getDetail(Long id) {
         return toDoRepository.findById(id).map(ToDoDetailDTO::new).orElseGet(ToDoDetailDTO::new);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private void addLog(Operation operation, Long id, ToDoPojo toDoPojo) {
+        // TODO: 16.2.2021  
     }
 }

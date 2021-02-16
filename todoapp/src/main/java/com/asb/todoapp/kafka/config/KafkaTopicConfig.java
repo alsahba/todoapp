@@ -37,4 +37,9 @@ public class KafkaTopicConfig {
     public NewTopic deleteToDoTopic() {
         return new NewTopic("deleteTodoTopic", 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic addLogTopic() {
+        return new NewTopic("addLogTopic", 1, (short) 1);
+    }
 }
