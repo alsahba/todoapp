@@ -33,13 +33,13 @@ public class ToDoController {
         return "ToDo updated successfully";
     }
 
-    @RequestMapping("/delete")
+    @DeleteMapping(value = "/delete/{id}")
     public String delete(@PathVariable Long id) {
         toDoService.publishForDelete(id);
         return "ToDo deleted successfully";
     }
 
-    @GetMapping()
+    @GetMapping(value = "{id}")
     public ToDoDetailDTO getDetail(@PathVariable Long id) {
         return toDoService.getDetail(id);
     }

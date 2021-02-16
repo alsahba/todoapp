@@ -48,7 +48,12 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     @Transactional
     public void update(ToDo toDo) {
-        toDoRepository.save(toDo);
+        Optional<ToDo> toDoFromDb = toDoRepository.findById(toDo.getId());
+        toDoFromDb.ifPresent(data -> {
+            data.setExplanation(toDo.getExplanation());
+            data.setImportance(toDo.getImportance());
+            toDoRepository.save(toDoFromDb.get());
+        });
     }
 
     @Override

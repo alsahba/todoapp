@@ -44,7 +44,6 @@ public class ToDo {
     public ToDo(UpdateToDoPojo updateToDoPojo) {
         this.id = updateToDoPojo.getId();
         this.explanation = updateToDoPojo.getExplanation();
-        this.creationDate = LocalDateTime.now();
         this.importance = updateToDoPojo.getImportance();
     }
 }
