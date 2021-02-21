@@ -18,19 +18,19 @@ public class ToDoConsumer {
 
     private Logger logger = LoggerFactory.getLogger(ToDoConsumer.class);
 
-    @KafkaListener(topics = "addTodoTopic", groupId = "todo", containerFactory = "objectContainerFactory")
+    @KafkaListener(topics = "add-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listen(AddToDoPojo addToDoPojo) {
         toDoService.add(new ToDo(addToDoPojo));
         logger.info("Received todo for add operation");
     }
 
-    @KafkaListener(topics = "updateTodoTopic", groupId = "todo", containerFactory = "objectContainerFactory")
+    @KafkaListener(topics = "update-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listen(UpdateToDoPojo updateToDoPojo) {
         toDoService.update(new ToDo(updateToDoPojo));
         logger.info("Received todo for update operation, id: " + updateToDoPojo.getId());
     }
 
-    @KafkaListener(topics = "deleteTodoTopic", groupId = "todo", containerFactory = "objectContainerFactory")
+    @KafkaListener(topics = "delete-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listen(Long id) {
         toDoService.deleteById(id);
         logger.info("Received todo for delete operation, id: " + id);

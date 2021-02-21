@@ -4,10 +4,8 @@ import com.asb.todoapp.applog.entity.enumeration.Operation;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
 import com.asb.todoapp.todo.entity.ToDo;
 import com.asb.todoapp.todo.entity.enumeration.Status;
-import com.asb.todoapp.todo.producer.AddToDoProducer;
-import com.asb.todoapp.todo.producer.DeleteToDoProducer;
 import com.asb.todoapp.todo.producer.ToDoProducer;
-import com.asb.todoapp.todo.producer.UpdateToDoProducer;
+import com.asb.todoapp.todo.producer.Topic;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
 import com.asb.todoapp.todo.producer.pojo.ToDoPojo;
 import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
@@ -28,13 +26,7 @@ public class ToDoServiceImpl implements ToDoService {
     private ToDoRepository toDoRepository;
 
     @Autowired
-    private AddToDoProducer addToDoProducer;
-
-    @Autowired
-    private UpdateToDoProducer updateToDoProducer;
-
-    @Autowired
-    private DeleteToDoProducer deleteToDoProducer;
+    private ToDoProducer toDoProducer;
 
     @Override
     @Transactional(readOnly = true)
@@ -62,19 +54,19 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     @Transactional
     public void publishForAdd(AddToDoPojo addToDoPojo) {
-        new ToDoProducer(addToDoProducer).publishMessage(addToDoPojo);
+        toDoProducer.publish(addToDoPojo, Topic.ADD_TODO_TOPIC);
     }
 
     @Override
     @Transactional
     public void publishForUpdate(UpdateToDoPojo updateToDoPojo) {
-        new ToDoProducer(updateToDoProducer).publishMessage(updateToDoPojo);
+        toDoProducer.publish(updateToDoPojo, Topic.UPDATE_TODO_TOPIC);
     }
 
     @Override
     @Transactional
     public void publishForDelete(Long id) {
-        deleteToDoProducer.publishMessage(id);
+        toDoProducer.publish(id, Topic.DELETE_TODO_TOPIC);
     }
 
     @Override

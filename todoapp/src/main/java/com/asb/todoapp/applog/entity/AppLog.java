@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Entity
-@Table("APPLOG")
+@Table(name = "APPLOG")
 public class AppLog {
 
     @Id

@@ -1,5 +1,6 @@
 package com.asb.todoapp.kafka.config;
 
+import com.asb.todoapp.todo.producer.Topic;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,21 +26,21 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic addToDoTopic() {
-        return new NewTopic("addTodoTopic", 1, (short) 1);
+        return new NewTopic(Topic.ADD_TODO_TOPIC.getValue(), 1, (short) 1);
     }
 
     @Bean
     public NewTopic updateToDoTopic() {
-        return new NewTopic("updateTodoTopic", 1, (short) 1);
+        return new NewTopic(Topic.UPDATE_TODO_TOPIC.getValue(), 1, (short) 1);
     }
 
     @Bean
     public NewTopic deleteToDoTopic() {
-        return new NewTopic("deleteTodoTopic", 1, (short) 1);
+        return new NewTopic(Topic.DELETE_TODO_TOPIC.getValue(), 1, (short) 1);
     }
 
     @Bean
     public NewTopic addLogTopic() {
-        return new NewTopic("addLogTopic", 1, (short) 1);
+        return new NewTopic(Topic.ADD_LOG_TOPIC.getValue(), 1, (short) 1);
     }
 }
