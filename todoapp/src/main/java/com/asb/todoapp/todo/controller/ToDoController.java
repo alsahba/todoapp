@@ -4,43 +4,49 @@ import com.asb.todoapp.todo.controller.dto.AddToDoDTO;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
 import com.asb.todoapp.todo.controller.dto.UpdateToDoDTO;
 import com.asb.todoapp.todo.service.ToDoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
 @RequestMapping("/todo")
 public class ToDoController {
 
-    @Autowired
-    private ToDoService toDoService;
+    private final ToDoService toDoService;
 
-    @GetMapping("/all")
-    public List<ToDoDetailDTO> getAll() {
-        return toDoService.getAll();
+    public ToDoController(ToDoService toDoService) {
+        this.toDoService = toDoService;
     }
 
-    @PostMapping("/add")
-    public String add(@RequestBody AddToDoDTO addToDoDTO) {
+    @GetMapping
+    public ResponseEntity<List<ToDoDetailDTO>> getAll() {
+        return ResponseEntity.ok(toDoService.getAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<String> add(@RequestBody @Valid AddToDoDTO addToDoDTO) {
         toDoService.publishForAdd(addToDoDTO.convertToPojo());
-        return "ToDo added successfully";
+        return new ResponseEntity<>("ToDo Added Successfully!", HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
-    public String update(@RequestBody UpdateToDoDTO updateToDoDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@RequestBody @Valid UpdateToDoDTO updateToDoDTO) {
         toDoService.publishForUpdate(updateToDoDTO.convertToPojo());
-        return "ToDo updated successfully";
+        return new ResponseEntity<>("ToDo Updated Successfully!", HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> delete(@PathVariable @Min(1) Long id) {
         toDoService.publishForDelete(id);
-        return "ToDo deleted successfully";
+        return new ResponseEntity<>("ToDo Deleted Successfully!", HttpStatus.ACCEPTED);
     }
 
-    @GetMapping(value = "{id}")
-    public ToDoDetailDTO getDetail(@PathVariable Long id) {
-        return toDoService.getDetail(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ToDoDetailDTO> getDetail(@PathVariable @Min(1) Long id) {
+        return ResponseEntity.ok(toDoService.getDetail(id));
     }
 }

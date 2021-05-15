@@ -1,18 +1,14 @@
 package com.asb.todoapp.todo.service;
 
-import com.asb.todoapp.applog.entity.enumeration.Operation;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
 import com.asb.todoapp.todo.entity.ToDo;
 import com.asb.todoapp.todo.entity.enumeration.Status;
 import com.asb.todoapp.todo.producer.ToDoProducer;
 import com.asb.todoapp.todo.producer.Topic;
 import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
-import com.asb.todoapp.todo.producer.pojo.ToDoPojo;
 import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
 import com.asb.todoapp.todo.repository.ToDoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -22,16 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
-    @Autowired
-    private ToDoRepository toDoRepository;
+    private final ToDoRepository toDoRepository;
+    private final ToDoProducer toDoProducer;
 
-    @Autowired
-    private ToDoProducer toDoProducer;
+    public ToDoServiceImpl(ToDoRepository toDoRepository, ToDoProducer toDoProducer) {
+        this.toDoRepository = toDoRepository;
+        this.toDoProducer = toDoProducer;
+    }
 
     @Override
     @Transactional(readOnly = true)
     public List<ToDoDetailDTO> getAll() {
-        return toDoRepository.findAll().stream().map(ToDoDetailDTO::new).collect(Collectors.toList());
+        return toDoRepository.findAllByStatusIn(Status.getActiveStatusList())
+                .stream().map(ToDoDetailDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -83,10 +82,5 @@ public class ToDoServiceImpl implements ToDoService {
     @Transactional(readOnly = true)
     public ToDoDetailDTO getDetail(Long id) {
         return toDoRepository.findById(id).map(ToDoDetailDTO::new).orElseGet(ToDoDetailDTO::new);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    private void addLog(Operation operation, Long id, ToDoPojo toDoPojo) {
-        // TODO: 16.2.2021  
     }
 }
