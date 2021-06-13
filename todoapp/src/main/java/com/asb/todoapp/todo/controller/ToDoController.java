@@ -13,7 +13,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping("/todo")
+@RequestMapping(value = "/todo")
 public class ToDoController {
 
     private final ToDoService toDoService;
@@ -22,18 +22,18 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<ToDoDetailDTO>> getAll() {
         return ResponseEntity.ok(toDoService.getAll());
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<String> add(@RequestBody @Valid AddToDoDTO addToDoDTO) {
         toDoService.publishForAdd(addToDoDTO.convertToPojo());
         return new ResponseEntity<>("ToDo Added Successfully!", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<String> update(@RequestBody @Valid UpdateToDoDTO updateToDoDTO) {
         toDoService.publishForUpdate(updateToDoDTO.convertToPojo());
         return new ResponseEntity<>("ToDo Updated Successfully!", HttpStatus.ACCEPTED);
