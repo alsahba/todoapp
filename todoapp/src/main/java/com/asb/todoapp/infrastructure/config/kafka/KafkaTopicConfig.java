@@ -1,4 +1,4 @@
-package com.asb.todoapp.kafka.config;
+package com.asb.todoapp.infrastructure.config.kafka;
 
 import com.asb.todoapp.todo.producer.Topic;
 import org.apache.kafka.clients.admin.AdminClientConfig;

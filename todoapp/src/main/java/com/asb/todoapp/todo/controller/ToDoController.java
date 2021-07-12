@@ -4,6 +4,7 @@ import com.asb.todoapp.todo.controller.dto.AddToDoDTO;
 import com.asb.todoapp.todo.controller.dto.ToDoDetailDTO;
 import com.asb.todoapp.todo.controller.dto.UpdateToDoDTO;
 import com.asb.todoapp.todo.service.ToDoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,11 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/todo")
 public class ToDoController {
 
     private final ToDoService toDoService;
-
-    public ToDoController(ToDoService toDoService) {
-        this.toDoService = toDoService;
-    }
 
     @GetMapping()
     public ResponseEntity<List<ToDoDetailDTO>> getAll() {

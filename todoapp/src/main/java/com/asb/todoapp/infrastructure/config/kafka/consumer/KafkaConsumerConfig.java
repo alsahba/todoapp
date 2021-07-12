@@ -1,4 +1,4 @@
-package com.asb.todoapp.kafka.config.consumer;
+package com.asb.todoapp.infrastructure.config.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Value;

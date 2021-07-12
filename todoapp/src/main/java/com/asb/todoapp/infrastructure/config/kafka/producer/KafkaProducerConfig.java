@@ -1,4 +1,4 @@
-package com.asb.todoapp.kafka.config.producer;
+package com.asb.todoapp.infrastructure.config.kafka.producer;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;

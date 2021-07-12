@@ -4,6 +4,7 @@ import com.asb.todoapp.todo.entity.enumeration.Importance;
 import lombok.*;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class AddToDoPojo extends ToDoPojo {
 
