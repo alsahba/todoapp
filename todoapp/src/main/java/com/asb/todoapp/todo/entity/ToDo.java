@@ -2,46 +2,47 @@ package com.asb.todoapp.todo.entity;
 
 import com.asb.todoapp.todo.entity.enumeration.Importance;
 import com.asb.todoapp.todo.entity.enumeration.Status;
-import com.asb.todoapp.todo.producer.pojo.AddToDoPojo;
-import com.asb.todoapp.todo.producer.pojo.UpdateToDoPojo;
+import com.asb.todoapp.todo.producer.command.AddToDoCommand;
+import com.asb.todoapp.todo.producer.command.UpdateToDoCommand;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TODO")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class ToDo {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "EXPLANATION")
     private String explanation;
 
-    @Column(name = "IMPORTANCE")
-    @Enumerated(EnumType.STRING)
     private Importance importance;
 
-    @Column(name = "CREATION_DATE")
+    @CreatedDate
     private LocalDateTime creationDate;
 
-    @Column(name = "STATUS")
-    @Enumerated(EnumType.STRING)
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
     private Status status;
 
-    public ToDo(AddToDoPojo addToDoPojo) {
-        this.explanation = addToDoPojo.getExplanation();
-        this.creationDate = LocalDateTime.now();
-        this.importance = addToDoPojo.getImportance();
+    public ToDo(AddToDoCommand addToDoCommand) {
+        this.explanation = addToDoCommand.getExplanation();
+        this.importance = addToDoCommand.getImportance();
         this.status = Status.CREATED;
     }
 
-    public ToDo(UpdateToDoPojo updateToDoPojo) {
+    public ToDo(UpdateToDoCommand updateToDoPojo) {
         this.id = updateToDoPojo.getId();
         this.explanation = updateToDoPojo.getExplanation();
         this.importance = updateToDoPojo.getImportance();

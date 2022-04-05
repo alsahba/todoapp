@@ -1,5 +1,10 @@
-package com.asb.todoapp.todo.producer;
+package com.asb.todoapp.infrastructure.configuration.kafka;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum Topic {
 
     ADD_TODO_TOPIC("add-todo-topic"),
@@ -7,13 +12,6 @@ public enum Topic {
     DELETE_TODO_TOPIC("delete-todo-topic"),
     ADD_LOG_TOPIC("add-log-topic");
 
-    private String value;
+    private final String name;
 
-    Topic(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }
