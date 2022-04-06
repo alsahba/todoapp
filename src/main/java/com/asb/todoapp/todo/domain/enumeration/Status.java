@@ -1,4 +1,4 @@
-package com.asb.todoapp.todo.entity.enumeration;
+package com.asb.todoapp.todo.domain.enumeration;
 
 import java.util.Arrays;
 import java.util.List;

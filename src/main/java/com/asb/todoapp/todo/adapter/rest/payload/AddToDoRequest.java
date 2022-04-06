@@ -1,7 +1,7 @@
-package com.asb.todoapp.todo.controller.dto;
+package com.asb.todoapp.todo.adapter.rest.payload;
 
-import com.asb.todoapp.todo.entity.enumeration.Importance;
-import com.asb.todoapp.todo.producer.command.AddToDoCommand;
+import com.asb.todoapp.todo.domain.enumeration.Importance;
+import com.asb.todoapp.todo.application.command.AddToDoCommand;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

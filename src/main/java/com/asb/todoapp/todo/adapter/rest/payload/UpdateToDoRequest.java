@@ -1,8 +1,7 @@
-package com.asb.todoapp.todo.controller.dto;
+package com.asb.todoapp.todo.adapter.rest.payload;
 
-import com.asb.todoapp.todo.entity.enumeration.Importance;
-import com.asb.todoapp.todo.entity.enumeration.Status;
-import com.asb.todoapp.todo.producer.command.UpdateToDoCommand;
+import com.asb.todoapp.todo.domain.enumeration.Importance;
+import com.asb.todoapp.todo.domain.enumeration.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

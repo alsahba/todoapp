@@ -1,8 +1,7 @@
-package com.asb.todoapp.todo.producer.command;
+package com.asb.todoapp.todo.application.command;
 
-import com.asb.todoapp.todo.controller.dto.UpdateToDoRequest;
-import com.asb.todoapp.todo.entity.enumeration.Importance;
-import com.asb.todoapp.todo.entity.enumeration.Status;
+import com.asb.todoapp.todo.adapter.rest.payload.UpdateToDoRequest;
+import com.asb.todoapp.todo.domain.enumeration.Status;
 import lombok.*;
 
 @Getter

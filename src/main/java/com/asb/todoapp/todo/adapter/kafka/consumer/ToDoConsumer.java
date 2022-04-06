@@ -1,13 +1,9 @@
-package com.asb.todoapp.todo.consumer;
+package com.asb.todoapp.todo.adapter.kafka.consumer;
 
-import com.asb.todoapp.todo.entity.ToDo;
-import com.asb.todoapp.todo.producer.command.AddToDoCommand;
-import com.asb.todoapp.todo.producer.command.UpdateToDoCommand;
-import com.asb.todoapp.todo.service.ToDoService;
+import com.asb.todoapp.todo.application.ToDoService;
+import com.asb.todoapp.todo.domain.ToDo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +15,20 @@ public class ToDoConsumer {
     private final ToDoService toDoService;
 
     @KafkaListener(topics = "add-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
-    public void listen(AddToDoCommand addToDoCommand) {
-        toDoService.add(new ToDo(addToDoCommand));
+    public void listenForSave(ToDo toDo) {
+        toDoService.add(toDo);
         log.info("Received todo for add operation");
     }
 
     @KafkaListener(topics = "update-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
-    public void listen(UpdateToDoCommand updateToDoPojo) {
-        toDoService.update(new ToDo(updateToDoPojo));
-        log.info("Received todo for update operation, id: " + updateToDoPojo.getId());
+    public void listenForUpdate(ToDo toDo) {
+        toDoService.update(toDo);
+        log.info("Received todo for update operation, id: " + toDo.getId());
     }
 
     @KafkaListener(topics = "delete-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
-    public void listen(Long id) {
-        toDoService.deleteById(id);
+    public void listenForDelete(Long id) {
+        toDoService.delete(id);
         log.info("Received todo for delete operation, id: " + id);
     }
 }
