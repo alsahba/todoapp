@@ -24,7 +24,7 @@ services:
 
   app:
     build:
-      context: .
+      context: todoapp
       dockerfile: Dockerfile
     expose:
       - 8080
