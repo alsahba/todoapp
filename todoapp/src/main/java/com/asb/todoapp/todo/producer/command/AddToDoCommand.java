@@ -4,9 +4,12 @@ import com.asb.todoapp.todo.entity.enumeration.Importance;
 import lombok.*;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class AddToDoCommand extends ToDoCommand {
 
     public AddToDoCommand(String explanation, Importance importance) {
         super(explanation, importance);
     }
+
 }

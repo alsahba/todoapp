@@ -1,19 +1,21 @@
 package com.asb.todoapp.todo.producer.command;
 
+import com.asb.todoapp.todo.controller.dto.UpdateToDoRequest;
 import com.asb.todoapp.todo.entity.enumeration.Importance;
 import com.asb.todoapp.todo.entity.enumeration.Status;
 import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@NoArgsConstructor
 public class UpdateToDoCommand extends ToDoCommand {
 
-    private final Long id;
-    private final Status status;
+    private Long id;
+    private Status status;
 
-    public UpdateToDoCommand(Long id, String explanation, Importance importance, Status status) {
-        super(explanation, importance);
+    public UpdateToDoCommand(Long id, UpdateToDoRequest request) {
+        super(request.getExplanation(), request.getImportance());
         this.id = id;
-        this.status = status;
+        this.status = request.getStatus();
     }
 }

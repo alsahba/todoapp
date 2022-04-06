@@ -36,7 +36,8 @@ public class ToDoService {
       ToDo toDoDb = findById(toDo.getId());
       toDoDb.setExplanation(toDo.getExplanation());
       toDoDb.setImportance(toDo.getImportance());
-      toDoRepository.save(toDo);
+      toDoDb.setStatus(toDo.getStatus());
+      toDoRepository.save(toDoDb);
    }
 
    public void publishForAdd(AddToDoCommand addToDoCommand) {

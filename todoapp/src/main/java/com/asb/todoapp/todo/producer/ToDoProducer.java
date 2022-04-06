@@ -19,7 +19,7 @@ public class ToDoProducer {
 
    public void publish(Object message, Topic topic) {
       try {
-         kafkaTemplate.send(topic.name(), UUID.randomUUID().toString(), message).get(60, TimeUnit.SECONDS);
+         kafkaTemplate.send(topic.getName(), UUID.randomUUID().toString(), message).get(60, TimeUnit.SECONDS);
       } catch (Exception e) {
          e.printStackTrace();
       }

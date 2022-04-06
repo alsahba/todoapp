@@ -13,19 +13,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UpdateToDoRequest {
 
-    @NotNull
-    private Long id;
-
     @NotBlank
     private String explanation;
 
-    @NotBlank
+    @NotNull
     private Importance importance;
 
     @NotNull
     private Status status;
 
-    public UpdateToDoCommand toCommand() {
-        return new UpdateToDoCommand(id, explanation, importance, status);
-    }
 }

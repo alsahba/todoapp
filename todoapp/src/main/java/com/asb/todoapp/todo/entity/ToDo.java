@@ -46,5 +46,6 @@ public class ToDo {
         this.id = updateToDoPojo.getId();
         this.explanation = updateToDoPojo.getExplanation();
         this.importance = updateToDoPojo.getImportance();
+        this.status = updateToDoPojo.getStatus();
     }
 }
