@@ -6,6 +6,7 @@ import com.asb.todoapp.todo.adapter.rest.payload.UpdateToDoRequest;
 import com.asb.todoapp.todo.application.command.UpdateToDoCommand;
 import com.asb.todoapp.todo.application.ToDoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/todos")
+@Slf4j
 public class ToDoController {
 
     private final ToDoService toDoService;
@@ -27,6 +29,7 @@ public class ToDoController {
 
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid AddToDoRequest addToDoRequest) {
+        log.info("New add todo request came");
         toDoService.publishForAdd(addToDoRequest.toCommand());
         return ResponseEntity.ok().build();
     }

@@ -35,10 +35,8 @@ services:
       - db
       - kafka
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/todoapp
-      - SPRING_DATASOURCE_USERNAME=todoapp
-      - SPRING_DATASOURCE_PASSWORD=todoapp
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - DB_HOST=db
+      - KAFKA_HOST=kafka
 
   db:
     image: 'postgres:13.1-alpine'

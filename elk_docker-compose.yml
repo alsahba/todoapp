@@ -1,0 +1,46 @@
+version: "2.2"
+
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    ports:
+      - ${ES_PORT}:9200
+    environment:
+      - node.name=es01
+      - cluster.name=${CLUSTER_NAME}
+      - cluster.initial_master_nodes=es01
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.license.self_generated.type=${LICENSE}
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  kibana:
+    depends_on:
+      - es01
+    links:
+      - es01
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    ports:
+      - ${KIBANA_PORT}:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+    mem_limit: ${MEM_LIMIT}
+
+  logstash:
+    depends_on:
+      - es01
+    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    ports:
+      - ${LOGSTASH_PORT}:5044
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+      - LS_HEAP_SIZE=${LS_HEAP_SIZE}
+    mem_limit: ${MEM_LIMIT}

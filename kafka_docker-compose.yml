@@ -22,6 +22,18 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
 
+  db:
+    image: 'postgres:14-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=todoapp
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+
 networks:
   kafka_network:
     name: kafka_docker_example_net

@@ -6,6 +6,7 @@ import com.asb.todoapp.todo.domain.ToDo;
 import com.asb.todoapp.todo.application.command.AddToDoCommand;
 import com.asb.todoapp.todo.application.command.UpdateToDoCommand;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ToDoService {
 
    private final CrudTodoPort crudTodoPort;
