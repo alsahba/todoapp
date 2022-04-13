@@ -36,4 +36,3 @@ services:
 
 networks:
   kafka_network:
-    name: kafka_docker_example_net

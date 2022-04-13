@@ -29,7 +29,7 @@ services:
     expose:
       - 8080
     ports:
-      - 8080:8080
+      - "8080:8080"
     container_name: app
     depends_on:
       - db
@@ -45,3 +45,33 @@ services:
       - POSTGRES_USER=todoapp
       - POSTGRES_PASSWORD=todoapp
       - POSTGRES_DB=todoapp
+
+  todoapp-es:
+    image: elasticsearch:${STACK_VERSION}
+    container_name: todoapp-es
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+  todoapp-kibana:
+    image: kibana:${STACK_VERSION}
+    container_name: todoapp-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://todoapp-es:9200
+  todoapp-logstash:
+    build:
+      context: logstash
+      dockerfile: Dockerfile
+    container_name: todoapp-logstash
+    ports:
+      - "5000:5000"
+      - "5044:5044"
+      - "9600:9600"
+    environment:
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://todoapp-es:9200
+      - XPACK_MONITORING_ENABLED=true

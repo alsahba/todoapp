@@ -29,7 +29,6 @@ public class ToDoController {
 
     @PostMapping
     public ResponseEntity add(@RequestBody @Valid AddToDoRequest addToDoRequest) {
-        log.info("New add todo request came");
         toDoService.publishForAdd(addToDoRequest.toCommand());
         return ResponseEntity.ok().build();
     }

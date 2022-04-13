@@ -16,19 +16,19 @@ public class ToDoConsumer {
 
     @KafkaListener(topics = "add-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listenForSave(ToDo toDo) {
-        toDoService.add(toDo);
         log.info("Received todo for add operation");
+        toDoService.add(toDo);
     }
 
     @KafkaListener(topics = "update-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listenForUpdate(ToDo toDo) {
-        toDoService.update(toDo);
         log.info("Received todo for update operation, id: " + toDo.getId());
+        toDoService.update(toDo);
     }
 
     @KafkaListener(topics = "delete-todo-topic", groupId = "todo", containerFactory = "objectContainerFactory")
     public void listenForDelete(Long id) {
-        toDoService.delete(id);
         log.info("Received todo for delete operation, id: " + id);
+        toDoService.delete(id);
     }
 }
