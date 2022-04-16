@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <springProperty name="host" source="elk.logstash.host"/>
+    <springProperty scope="context" name="app_name" source="spring.application.name"/>
+    <springProperty scope="context" name="app_host" source="server.address"/>
+    <springProperty scope="context" name="app_port" source="server.port"/>
+    <springProperty scope="context" name="logstash_host" source="elk.logstash.host"/>
 
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <param name="Encoding" value="UTF-8"/>
-        <destination>${host}</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <destination>${logstash_host}</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"service_name":"${app_name}"}</customFields>
+        </encoder>
     </appender>
 
     <root level="INFO">

@@ -1,6 +1,10 @@
+server:
+  address: localhost
+  port: 8080
+
 spring:
   application:
-    name: "todoapp"
+    name: todoapp
 
   jpa:
     generate-ddl: true
