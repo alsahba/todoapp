@@ -1,0 +1,12 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/todoapp.log
+
+output.logstash:
+  enabled: true
+  hosts: ["todoapp-logstash:5044"]
+
+strict.perms: false
+xpack.monitoring.collection.enabled: true

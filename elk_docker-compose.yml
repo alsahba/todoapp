@@ -10,6 +10,7 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - xpack.monitoring.collection.enabled=true
   todoapp-kibana:
     image: kibana:${STACK_VERSION}
     container_name: todoapp-kibana
@@ -27,3 +28,11 @@ services:
     environment:
       - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://todoapp-es:9200
       - XPACK_MONITORING_ENABLED=true
+      - xpack.monitoring.collection.enabled=true
+  todoapp-filebeat:
+    build: filebeat
+    container_name: todoapp-filebeat
+    volumes:
+      - type: bind
+        source: todoapp.log
+        target: /usr/share/filebeat/todoapp.log

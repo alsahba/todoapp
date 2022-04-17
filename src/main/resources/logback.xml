@@ -11,10 +11,20 @@
         <destination>${logstash_host}</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"service_name":"${app_name}"}</customFields>
+            <excludeMdcKeyName>logstash_host</excludeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>todoapp.log</file>
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <excludeMdcKeyName>logstash_host</excludeMdcKeyName>
         </encoder>
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="logstash"/>
+        <!--<appender-ref ref="logstash"/>-->
+        <appender-ref ref="file"/>
     </root>
 </configuration>
