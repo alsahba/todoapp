@@ -33,5 +33,5 @@ Important: If you want to change the logstash.conf file be sure that the command
 Because it is layered configuration, commands must be ran again with respect to new version of configuration file.
 <br /><br />
 
-####WIP: 
+#### WIP: 
 - Filebeat integration between app -> filebeat -> logstash
