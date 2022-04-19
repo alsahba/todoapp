@@ -1,5 +1,5 @@
 server:
-  address: localhost
+  address: 0.0.0.0
   port: 8080
 
 spring:
@@ -25,4 +25,4 @@ kafka:
 
 elk:
   logstash:
-    host: ${ELK_LOGSTASH_HOST:localhost}:${ELK_LOGSTASH_PORT:5000}
+    host: ${ELK_LOGSTASH_HOST:localhost}:5000

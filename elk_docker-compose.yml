@@ -1,8 +1,8 @@
 version: '3'
 services:
-  todoapp-es:
+  elasticsearch:
     image: elasticsearch:${STACK_VERSION}
-    container_name: todoapp-es
+    container_name: elasticsearch
     restart: always
     ports:
       - "9200:9200"
@@ -11,28 +11,28 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false
       - xpack.monitoring.collection.enabled=true
-  todoapp-kibana:
+  kibana:
     image: kibana:${STACK_VERSION}
-    container_name: todoapp-kibana
+    container_name: kibana
     ports:
       - "5601:5601"
     environment:
-      - ELASTICSEARCH_HOSTS=http://todoapp-es:9200
-  todoapp-logstash:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+  logstash:
     build: logstash
-    container_name: todoapp-logstash
+    container_name: logstash
     ports:
       - "5000:5000"
       - "5044:5044"
       - "9600:9600"
     environment:
-      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://todoapp-es:9200
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - XPACK_MONITORING_ENABLED=true
       - xpack.monitoring.collection.enabled=true
-  todoapp-filebeat:
+  filebeat:
     build: filebeat
-    container_name: todoapp-filebeat
+    container_name: filebeat
     volumes:
       - type: bind
-        source: todoapp.log
-        target: /usr/share/filebeat/todoapp.log
+        source: ./logs/todoapp.log
+        target: /logs/todoapp.log

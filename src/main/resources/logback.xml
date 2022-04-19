@@ -6,17 +6,8 @@
     <springProperty scope="context" name="app_port" source="server.port"/>
     <springProperty scope="context" name="logstash_host" source="elk.logstash.host"/>
 
-    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <param name="Encoding" value="UTF-8"/>
-        <destination>${logstash_host}</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"service_name":"${app_name}"}</customFields>
-            <excludeMdcKeyName>logstash_host</excludeMdcKeyName>
-        </encoder>
-    </appender>
-
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>todoapp.log</file>
+        <file>./logs/todoapp.log</file>
         <append>true</append>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <excludeMdcKeyName>logstash_host</excludeMdcKeyName>
@@ -24,7 +15,6 @@
     </appender>
 
     <root level="INFO">
-        <!--<appender-ref ref="logstash"/>-->
         <appender-ref ref="file"/>
     </root>
 </configuration>
