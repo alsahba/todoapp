@@ -20,7 +20,7 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
-    @Value(value = "${kafka.bootstrapAddress}")
+    @Value(value = "${kafka.host}")
     private String bootstrapAddress;
 
     @Bean
@@ -52,7 +52,7 @@ public class KafkaConfiguration {
 
     @Bean(name = "objectContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerObjectContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        var factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
         factory.setConsumerFactory(objectConsumerFactory());
         return factory;
     }

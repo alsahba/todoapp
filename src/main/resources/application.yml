@@ -21,7 +21,7 @@ spring:
     allow-bean-definition-overriding: true
   
 kafka:
-  bootstrapAddress: ${KAFKA_HOST:localhost}:29092
+  host: ${KAFKA_HOST:localhost}:29092
 
 elk:
   logstash:

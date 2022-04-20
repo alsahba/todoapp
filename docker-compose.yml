@@ -56,6 +56,7 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+
   kibana:
     image: kibana:${STACK_VERSION}
     container_name: kibana
@@ -63,6 +64,7 @@ services:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
   logstash:
     build: logstash
     container_name: logstash
@@ -73,6 +75,8 @@ services:
     environment:
       - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - XPACK_MONITORING_ENABLED=true
+      - xpack.monitoring.collection.enabled=true
+
   filebeat:
     build: filebeat
     container_name: filebeat

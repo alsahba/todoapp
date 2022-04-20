@@ -1,8 +1,14 @@
 {
   "properties": [
     {
-      "name": "kafka.bootstrapAddress",
+      "name": "kafka.host",
       "type": "java.lang.String",
-      "description": "Description for kafka.bootstrapAddress."
-  }
-] }
+      "description": "Description for kafka.host."
+    },
+    {
+      "name": "elk.logstash.host",
+      "type": "java.lang.String",
+      "description": "Description for elk.logstash.host."
+    }
+  ]
+}
